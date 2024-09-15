@@ -3,8 +3,11 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
-from django.contrib.auth.models import User
+from rest_framework_simplejwt.exceptions import TokenError
+from rest_framework import generics
+from .serializers import DeclarationSerializer
+from .models import Declaration
+
 
 class LoginAPIView(APIView):
     def post(self, request):
@@ -36,3 +39,8 @@ class LogoutAPIView(APIView):
             return Response({'detail': 'Logout muvaffaqiyatli.'}, status=status.HTTP_205_RESET_CONTENT)
         except TokenError as e:
             return Response({'detail': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        
+
+class DeclarationCreateAPIView(generics.CreateAPIView):
+    queryset = Declaration.objects.all()
+    serializer_class = DeclarationSerializer
