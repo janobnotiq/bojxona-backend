@@ -8,6 +8,12 @@ class Company(BaseModel):
     name = models.CharField(max_length=256,unique=True)
     phone = models.CharField(max_length=50)
 
+    def __str__(self) -> str:
+        return self.name
+
+    class Meta:
+        verbose_name_plural = "Companies"
+
 
 class Declaration(BaseModel):
     class Status(models.TextChoices):
@@ -25,8 +31,8 @@ class Declaration(BaseModel):
     reference_gtd = models.CharField(max_length=256)
     date_recorded = models.CharField(max_length=256)
     customs_mode = models.CharField(max_length=10,choices=Modes.choices)
-    sender = models.ForeignKey(Company,on_delete=models.CASCADE)
-    reciever = models.ForeignKey(Company,on_delete=models.CASCADE)
+    sender = models.ManyToManyField(Company,related_name="senders")
+    reciever = models.ManyToManyField(Company,related_name="recievers")
     country = models.CharField(max_length=256)
     custom_price = models.DecimalField(max_digits=10,decimal_places=2)
     factor_price = models.DecimalField(max_digits=10,decimal_places=2)

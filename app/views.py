@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate,models
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.exceptions import TokenError
 from rest_framework import generics
@@ -44,3 +44,6 @@ class LogoutAPIView(APIView):
 class DeclarationCreateAPIView(generics.CreateAPIView):
     queryset = Declaration.objects.all()
     serializer_class = DeclarationSerializer
+
+    def perform_create(self,serializer):
+        serializer.save(declarant=models.User.objects.filter(id=2).last())

@@ -18,3 +18,18 @@ class DeclarationSerializer(serializers.ModelSerializer):
             "quantity",
             "status"
             ]
+        
+
+#         {
+#     "number_gtd":272772,
+#     "reference_gtd":121,
+#     "date_recorded":16,
+#     "customs_mode":"IM 40",
+#     "sender":"Shanhay LLC",
+#     "reciever":"Hasanboy savdo MCHJ",
+#     "country":"Xitoy",
+#     "custom_price":0,
+#     "factor_price":123,
+#     "quantity":1,
+#     "status":"Finished"
+# }
